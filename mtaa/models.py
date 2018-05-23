@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Hood(models.Model):
@@ -14,16 +16,30 @@ class Hood(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.TextField(max_length=500, blank=True)
-    idNumber = models.PositiveSmallIntegerField()
+    idNumber = models.PositiveSmallIntegerField(null=True, unique=True)
     generalLocation = models.CharField(max_length=500, blank=True)
     email = models.EmailField(max_length=254)
     hood = models.ForeignKey(Hood)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 class Business(models.Model):
     bizName = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=254)
     hood = models.ForeignKey(Hood)
+
+    @classmethod
+    def search_by_bizName(cls, search_term):
+        business = cls.objects.filter(bizName__icontains=search_term)
+        return business
     
     def __str__(self):
         return self.bizName
