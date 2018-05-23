@@ -15,11 +15,13 @@ class Hood(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.TextField(max_length=500, blank=True)
+    email_confirmed = models.BooleanField(default=False)
     idNumber = models.PositiveSmallIntegerField(null=True, unique=True)
+    name = models.TextField(max_length=500, blank=True)
+    avatar = models.ImageField(upload_to='profilepic/')
     generalLocation = models.CharField(max_length=500, blank=True)
     email = models.EmailField(max_length=254)
-    hood = models.ForeignKey(Hood)
+    hood = models.ForeignKey(Hood, null=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -34,7 +36,7 @@ class Business(models.Model):
     bizName = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     email = models.EmailField(max_length=254)
-    hood = models.ForeignKey(Hood)
+    hood = models.ForeignKey(Hood, null=True)
 
     @classmethod
     def search_by_bizName(cls, search_term):
@@ -47,7 +49,7 @@ class Business(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=2000)
-    hood = models.ForeignKey(Hood)
+    hood = models.ForeignKey(Hood, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     postDate = models.DateTimeField(auto_now_add=True)
     
@@ -65,7 +67,7 @@ class Social_Ammenities(models.Model):
     location = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
-    hood = models.ForeignKey(Hood)
+    hood = models.ForeignKey(Hood, null=True)
     
     def __str__(self):
         return self.ammenityName
