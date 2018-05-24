@@ -12,12 +12,16 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from .forms import NewPostForm, EditProfile
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
+@login_required(login_url='/accounts/login/')
 def index(request):
     return render(request, 'all/index.html')
 
 
+@login_required(login_url='/accounts/login/')
 def search_results(request):
 
     if 'business' in request.GET and request.GET["business"]:
@@ -57,7 +61,7 @@ def signup(request):
 def account_activation_sent(request):
     return render(request, 'registration/account_activation_sent.html')
 
-
+@login_required(login_url='/accounts/login/')
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -76,6 +80,7 @@ def activate(request, uidb64, token):
         return render(request, 'registration/account_activation_invalid.html')
 
 
+@login_required(login_url='/accounts/login/')
 def new_post(request):
     current_user = request.user
     if request.method == 'POST':
@@ -84,11 +89,13 @@ def new_post(request):
             post = form.save(commit=False)
             post.user = current_user
             post.save()
+            return redirect('homepage')
     else:
         form = NewPostForm()
-    return render(request, 'index.html', {"form": form})
+    return render(request, 'all/post.html', {"form": form})
+    
 
-
+@login_required(login_url='/accounts/login/')
 def profile(request, profile_id):
     current_user = request.user
     profiles = Profile.objects.filter(user__username__iexact=profile_id)
@@ -102,9 +109,9 @@ def profile(request, profile_id):
         "all_profile": all_profile
     }
     return render(request, "all/profile.html", content)
-    
 
 
+@login_required(login_url='/accounts/login/')
 def edit(request):
     profile = request.user.profile
     if request.method == 'POST':

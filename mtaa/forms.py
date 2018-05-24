@@ -11,11 +11,11 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2', )
 
-class NewPostForm(forms.Form):
+class NewPostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ['hood', 'user']
-
+        
 
 class EditProfile(forms.ModelForm):
     class Meta:

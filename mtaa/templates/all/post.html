@@ -1,0 +1,36 @@
+{%extends 'all/base.html'%} 
+{% load bootstrap3 %}
+{% block content %} 
+{{bock.super}}
+
+<div class="container">
+
+    <!-- Empty Div -->
+    <div class="col-md-2 col-lg-2">
+
+    </div>
+
+    <!-- Create Post form -->
+
+    <div class="col-md-8 col-lg-8">
+
+        <form action="{% url 'post' %}" method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {% bootstrap_form form %}
+
+            <input type="submit" class="btn btn-success btn-lg">
+
+        </form>
+
+    </div>
+
+    <!-- Empty Div -->
+    <div class="col-md-2 col-lg-2">
+
+    </div>
+
+
+
+</div>
+{% endblock %}
