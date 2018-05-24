@@ -16,12 +16,12 @@ class Hood(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)
-    idNumber = models.PositiveSmallIntegerField(null=True, unique=True)
-    name = models.TextField(max_length=500, blank=True)
+    idNumber = models.CharField(max_length=500, null=True, unique=True)
+    name = models.CharField(max_length=500, blank=True)
     avatar = models.ImageField(upload_to='profilepic/')
-    generalLocation = models.CharField(max_length=500, blank=True)
+    generalLocation = models.TextField(max_length=500, blank=True)
     email = models.EmailField(max_length=254)
-    hood = models.ForeignKey(Hood, null=True)
+    hood = models.ForeignKey(Hood, null=True, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

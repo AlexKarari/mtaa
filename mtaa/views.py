@@ -10,7 +10,8 @@ from .tokens import account_activation_token
 from django.utils.encoding import force_text
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-
+from .forms import NewPostForm, EditProfile
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 # Create your views here.
 
 def index(request):
@@ -69,6 +70,52 @@ def activate(request, uidb64, token):
         user.profile.email_confirmed = True
         user.save()
         login(request, user)
-        return redirect('various')
+        return redirect('edit')
+        
     else:
         return render(request, 'registration/account_activation_invalid.html')
+
+
+def new_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+    else:
+        form = NewPostForm()
+    return render(request, 'index.html', {"form": form})
+
+
+def profile(request, profile_id):
+    current_user = request.user
+    profiles = Profile.objects.filter(user__username__iexact=profile_id)
+    profile = Profile.objects.get(user__username__exact=profile_id)
+    all_profile = Profile.objects.all()
+    content = {
+        "profiles": profiles,
+        "profile": profile,
+        "user": current_user,
+        "profile_id": profile_id,
+        "all_profile": all_profile
+    }
+    return render(request, "all/profile.html", content)
+    
+
+
+def edit(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = EditProfile(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            current_user = request.user
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('profile', current_user.username)
+    else:
+        form = EditProfile()
+    return render(request, 'all/editprofile.html', {"form": form})
+

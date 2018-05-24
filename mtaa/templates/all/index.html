@@ -1,5 +1,17 @@
-{%extends 'all/base.html'%} 
-{% block content %} 
-{{bock.super}} 
-<h2>Home Page</h2>
+{%extends 'all/base.html'%} {% block content %} {{bock.super}}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">{{post.title}}</h1>
+    </div>
+
+    <div class="row">
+        <p>{{post.description}}</p>
+    </div>
+
+    <div class="row">
+        <p>Posted {{post.postDate|timesince}} by {{post.profile.name}}</p>
+    </div>
+
+</div>
+
 {% endblock %}
