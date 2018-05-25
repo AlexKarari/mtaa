@@ -4,7 +4,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from .forms import SignUpForm, NewBusinessForm, NewPostForm, EditProfile
+from .forms import SignUpForm, NewBusinessForm, NewPostForm, EditProfile, NewSocialForm
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.utils.encoding import force_text
@@ -18,7 +18,6 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/accounts/login/')
 def index(request):
     post = Post.objects.all()
-    print (post)
     return render(request, 'all/index.html', {"post": post})
 
 
@@ -141,3 +140,17 @@ def business(request):
     else:
         form = NewBusinessForm()
     return render(request, 'all/business.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def social_ammenities(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewSocialForm(request.POST)
+        if form.is_valid():
+            social = form.save(commit=False)
+            social.user = current_user
+            social.save()
+            return redirect('homepage')
+    else:
+        form = NewSocialForm()
+    return render(request, 'all/social_ammenities.html', {"form": form})

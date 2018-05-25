@@ -27,4 +27,8 @@ class NewBusinessForm(forms.ModelForm):
     class Meta:
         model = Business
         exclude = ['hood', 'user']
-        
+
+class NewSocialForm(forms.ModelForm):
+    class Meta:
+        model = Social_Ammenities
+        exclude = ['hood']

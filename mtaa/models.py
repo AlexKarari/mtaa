@@ -33,9 +33,12 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 class Business(models.Model):
-    bizName = models.CharField(max_length=100)
+    business_name = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description_of_biz = models.TextField()
+    location = models.CharField(max_length=1000)
     email = models.EmailField(max_length=254)
+    
     hood = models.ForeignKey(Hood, null=True)
 
     @classmethod
@@ -44,7 +47,7 @@ class Business(models.Model):
         return business
     
     def __str__(self):
-        return self.bizName
+        return self.business_name
 
 class Post(models.Model):
     title = models.CharField(max_length=100)

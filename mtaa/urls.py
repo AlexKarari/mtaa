@@ -16,7 +16,8 @@ urlpatterns = [
     url(r'^edit/$', views.edit, name='edit'),
     url(r'^profile/(?P<profile_id>[-\w]+)/$', views.profile, name='profile'),
     url(r'^new/business/$', views.business, name='business'),
-    
+    url(r'^social/$', views.social_ammenities, name='social'),
+        
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
