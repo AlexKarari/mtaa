@@ -31,10 +31,16 @@
                             <a href="{%url 'homepage'%}">Home</a>
                         </li>
                         <li>
-                            <a href="{%url 'post' %}">Create Notice Post</a>
+                            <a href="{%url 'post' %}">Post Community Notice</a>
                         </li>
                         <li>
-                            <a href="#">View Profile</a>
+                            <a href="{%url 'business' %}">Advertise a Business</a>
+                        </li>
+                        <li>
+                            <a href="{%url 'profile' user.id %}">View Own Profile</a>
+                        </li>
+                        <li>
+                            <a href="{%url 'neighbourhood' %}">Post a new Neighbourhood</a>
                         </li>
                         <li>
                             <a href="/accounts/password/change">Change Password</a>
