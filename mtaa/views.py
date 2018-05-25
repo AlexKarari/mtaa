@@ -4,7 +4,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
-from .forms import SignUpForm, NewBusinessForm, NewPostForm, EditProfile, NewSocialForm
+from .forms import SignUpForm, NewBusinessForm, NewPostForm, EditProfile, NewSocialForm, NewHoodForm
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .tokens import account_activation_token
 from django.utils.encoding import force_text
@@ -154,3 +154,18 @@ def social_ammenities(request):
     else:
         form = NewSocialForm()
     return render(request, 'all/social_ammenities.html', {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
+def neighbourhood(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewHoodForm(request.POST)
+        if form.is_valid():
+            hood = form.save(commit=False)
+            hood.user = current_user
+            hood.save()
+            return redirect('homepage')
+    else:
+        form = NewHoodForm()
+    return render(request, 'all/hood.html', {"form": form})

@@ -17,6 +17,8 @@ urlpatterns = [
     url(r'^profile/(?P<profile_id>[-\w]+)/$', views.profile, name='profile'),
     url(r'^new/business/$', views.business, name='business'),
     url(r'^social/$', views.social_ammenities, name='social'),
+    url(r'^hood/$', views.neighbourhood, name='neighbourhood'),
+
         
 ]
 if settings.DEBUG:

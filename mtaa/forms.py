@@ -9,7 +9,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', )
+        fields = ('username', 'email', 'password1', 'password2')
 
 class NewPostForm(forms.ModelForm):
     class Meta:
@@ -32,3 +32,10 @@ class NewSocialForm(forms.ModelForm):
     class Meta:
         model = Social_Ammenities
         exclude = ['hood']
+
+
+class NewHoodForm(forms.ModelForm):
+    class Meta:
+        model = Hood
+        fields = ('hoodName', 'hoodLocation', 'occupantsCount', 'admin')
+        
