@@ -175,3 +175,11 @@ def neighbourhood(request):
 def bizdisplay(request):
     biz = Business.objects.all()
     return render(request, 'all/bizdisplay.html', {"biz": biz})
+
+
+@login_required(login_url='/accounts/login/')
+def hooddisplay(request):
+    hoods = Hood.objects.all()
+    return render(request, 'all/displayhood.html', {"hoods": hoods})
+
+
