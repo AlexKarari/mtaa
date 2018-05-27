@@ -11,11 +11,19 @@
 </div>
 <hr>
 <div class="row">
-    {% if post in post %}
+    {% for post in post %}
     <div class="col-md-6">
-        
-
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{post.title|upper}}</h3>
+            </div>
+            <div class="panel-body">
+                 {{post.description}}
+            </div>
+            <div class="panel-footer">{{post.postDate}}</div>
+        </div>
     </div>
+     {% endfor %}
 
 </div>
 
