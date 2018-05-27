@@ -2,26 +2,24 @@
 {% block content %} 
 {{bock.super}}
 <div class="row">
-    {% for bizdisplay in biz %}
+    {% for hooddisplay in hooddisplay %}
     <div class="col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">{{bizdisplay.business_name|upper}}</h3>
+                <h3 class="panel-title">{{hooddisplay.hoodName|upper}}</h3>
             </div>
             <div class="panel-body">
-                {{bizdisplay.description_of_biz}}   
+                {{hooddisplay.hoodLocation}}
             </div>
             <div class="panel-body">
-                {{bizdisplay.location}}
+                Number of last registered occupants: {{hooddisplay.occupantsCount}}
             </div>
-            <div class="panel-body">
-                {{bizdisplay.email}}
+            <div class="panel-footer">
+                Neighbourhood created by: {{hooddisplay.admin}}
             </div>
-            <div class="panel-footer">{{bizdisplay.hood}}</div>
         </div>
     </div>
     {% endfor %}
 
 </div>
 {% endblock %}
-  
