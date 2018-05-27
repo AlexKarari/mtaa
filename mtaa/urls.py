@@ -18,8 +18,8 @@ urlpatterns = [
     url(r'^new/business/$', views.business, name='business'),
     url(r'^social/$', views.social_ammenities, name='social'),
     url(r'^hood/$', views.neighbourhood, name='neighbourhood'),
-
-        
+    url(r'^business/$', views.bizdisplay, name='bizdisplay'),
+            
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

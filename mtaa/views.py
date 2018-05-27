@@ -169,3 +169,9 @@ def neighbourhood(request):
     else:
         form = NewHoodForm()
     return render(request, 'all/hood.html', {"form": form})
+
+
+@login_required(login_url='/accounts/login/')
+def bizdisplay(request):
+    biz = Business.objects.all()
+    return render(request, 'all/bizdisplay.html', {"biz": biz})
