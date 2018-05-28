@@ -3,7 +3,7 @@
 {{bock.super}}
 <div class="row">
     {% for displayhood in hoods %}
-    <!-- "hoods" in the above line of code refers to the "hoods" passed in in my views-->
+    <!-- "hoods" in the above line of code refers to the "hoods" passed in, in my views-->
     <div class="col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -14,6 +14,10 @@
             </div>
             <div class="panel-body">
                 Last number of registered occupants as per the census is: {{displayhood.occupantsCount}}
+            </div>
+            <div class="panel-body">
+                Join Neighbourhood
+                <i class="fas fa-sign-in-alt"></i>
             </div>
             <div class="panel-footer">
                 Neighbourhood created by: {{displayhood.admin}}

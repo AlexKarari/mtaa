@@ -195,4 +195,4 @@ def join(request, hoodId):
 
 		Join(user_id=request.user, hood_id=neighbourhood).save()
 
-	return redirect('hoodHome', hoodId)
+	return redirect('displayhood', hoodId)

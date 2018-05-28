@@ -4,6 +4,7 @@
 
     <div class="row">
         {% if searched_businesses%}
+        <!--"searched_businesses" above is a line of code from search view function. It is what has been passed in-->
         <h2>Found {{ searched_businesses|length }} of searched term {{message}}</h2>
         {% else %}
         <h2> No search term result found {{message}}</h2>
