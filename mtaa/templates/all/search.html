@@ -16,7 +16,9 @@
         {% if searched_businesses %}
         {% for searched_businesses in searched_businesses %}
         <div class="col-sm-6 col-md-3">
-            <h1>{{searched_businesses.business_name}}</h1>
+            <a href="{%url 'bizdisplay' %}">
+                <h3>{{searched_businesses.business_name}}</h3>
+            </a>
         </div>
         {% endfor %} 
         {% endif %}
