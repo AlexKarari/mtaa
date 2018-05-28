@@ -178,7 +178,7 @@ def bizdisplay(request):
 
 
 @login_required(login_url='/accounts/login/')
-def hooddisplay(request):
+def mtaadisplay(request):
     hoods = Hood.objects.all()
     return render(request, 'all/displayhood.html', {"hoods": hoods})
 
