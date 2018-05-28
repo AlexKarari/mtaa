@@ -2,33 +2,38 @@
 {% block content %} 
 {{bock.super}}
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3 col-md-offset-2">
         <img src="media/profilepic/mtaa.jpg" alt="logo">
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
         <h3 style="text-align: left; font-size: xx-large">Mtaa Mentality</h3>
     </div>
 </div>
+
+<div class="container">
 <hr>
 <div class="row">
-    {% for post in post %} 
-    <div class="col-md-6">
+    <h3 style="text-align: center">Hood's Notices</h3>
+    {% for post in post %}
+    <div class="col-md-4">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">{{post.title|upper}}</h3>
             </div>
             <div class="panel-body">
-                 {{post.description}}
+                {{post.description}}
             </div>
             <div class="panel-footer">{{post.postDate}}</div>
         </div>
     </div>
-     {% endfor %}
+    {% endfor %}
 
 </div>
+<hr>
 <div class="row">
+<h3 style="text-align: center">Hood's Public Ammenities</h3>
     {% for public in public %}
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">{{public.ammenityName|upper}}</h3>
@@ -36,18 +41,20 @@
             <div class="panel-body">
                 {{public.location}}
             </div>
-        <div class="panel-body">
-            {{public.description}}
-        </div>
-        <div class="panel-body">
-            {{public.address}}
-        </div>
-        <div class="panel-footer">
-            {{public.hood}}
+            <div class="panel-body">
+                {{public.description}}
+            </div>
+            <div class="panel-body">
+                {{public.address}}
+            </div>
+            <div class="panel-footer">
+                {{public.hood}}
+            </div>
         </div>
     </div>
-</div>
     {% endfor %}
 
 </div>
+</div>
+
 {% endblock %}
