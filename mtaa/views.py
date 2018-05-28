@@ -76,7 +76,6 @@ def account_activation_sent(request):
     return render(request, 'registration/account_activation_sent.html')
 
 #View funtion that activates their account once they signup to use the application
-@login_required(login_url='/accounts/login/')
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))

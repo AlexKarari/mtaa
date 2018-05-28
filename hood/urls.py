@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^login/$', views.login,
         {'template_name': 'registration/login.html'}, name='login'),
     url(r'^logout/$', views.logout, {"next_page": 'login'}, name='logout'),
+    
 ]
