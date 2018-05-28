@@ -11,7 +11,7 @@
 </div>
 <hr>
 <div class="row">
-    {% for post in post %}
+    {% for post in post %} 
     <div class="col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -24,6 +24,30 @@
         </div>
     </div>
      {% endfor %}
+
+</div>
+<div class="row">
+    {% for public in public %}
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{public.ammenityName|upper}}</h3>
+            </div>
+            <div class="panel-body">
+                {{public.location}}
+            </div>
+        <div class="panel-body">
+            {{public.description}}
+        </div>
+        <div class="panel-body">
+            {{public.address}}
+        </div>
+        <div class="panel-footer">
+            {{public.hood}}
+        </div>
+    </div>
+</div>
+    {% endfor %}
 
 </div>
 {% endblock %}

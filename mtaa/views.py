@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Profile, Hood, Business, Post, save_user_profile, Join
+from .models import Profile, Hood, Business, Post, save_user_profile, Join, Social_Ammenities
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -19,10 +19,11 @@ from django.contrib import messages
 @login_required(login_url='/accounts/login/')
 def index(request):
     '''
-    View function that displays the homepage and all its contents
+    View function that displays the homepage and all its contents including social ammenitits and hoods notices
     '''
     post = Post.objects.all()
-    return render(request, 'all/index.html', {"post": post})
+    public = Social_Ammenities.objects.all()
+    return render(request, 'all/index.html', {"post": post, "public": public})
 
 
 @login_required(login_url='/accounts/login/')
