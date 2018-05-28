@@ -3,20 +3,19 @@
 <div class="container">
 
     <div class="row">
-        {% if business%}
-        <h2>Found {{ business|length }} of searched term {{message}}</h2>
+        {% if searched_businesses%}
+        <h2>Found {{ searched_businesses|length }} of searched term {{message}}</h2>
         {% else %}
-        <h2> Found 0 business for the search term {{message}}</h2>
+        <h2> No search term result found {{message}}</h2>
         {% endif %}
 
     </div>
 
     <div class="row">
-
-        {% if business %} 
-        {% for business in businesses %}
+        {% if searched_businesses %}
+        {% for searched_businesses in searched_businesses %}
         <div class="col-sm-6 col-md-3">
-            <h1>{{business.bizName}}</h1>
+            <h1>{{searched_businesses.business_name}}</h1>
         </div>
         {% endfor %} 
         {% endif %}

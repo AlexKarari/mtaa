@@ -42,8 +42,8 @@ class Business(models.Model):
     hood = models.ForeignKey(Hood, null=True)
 
     @classmethod
-    def search_by_bizName(cls, search_term):
-        business = cls.objects.filter(bizName__icontains=search_term)
+    def search_by_business_name(cls, search_term):
+        business = cls.objects.filter(business_name__icontains=search_term)
         return business
     
     def __str__(self):
