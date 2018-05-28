@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^hood/$', views.neighbourhood, name='neighbourhood'),
     url(r'^business/$', views.bizdisplay, name='bizdisplay'),
     url(r'^neighbourhood_display/$', views.mtaadisplay, name='displayhood'),
-    
+    url(r'^join/(\d+)', views.join, name='joinHood'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

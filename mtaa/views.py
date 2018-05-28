@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Profile, Hood, Business, Post, save_user_profile
+from .models import Profile, Hood, Business, Post, save_user_profile, Join
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -183,3 +183,16 @@ def mtaadisplay(request):
     return render(request, 'all/displayhood.html', {"hoods": hoods})
 
 
+def join(request, hoodId):
+	'''
+	This view function will enable new users join a given neighbourhood 
+	'''
+	neighbourhood = Hood.objects.get(pk=hoodId)
+	if Join.objects.filter(user_id=request.user).exists():
+
+		Join.objects.filter(user_id=request.user).update(hood_id=neighbourhood)
+	else:
+
+		Join(user_id=request.user, hood_id=neighbourhood).save()
+
+	return redirect('hoodHome', hoodId)

@@ -75,3 +75,13 @@ class Social_Ammenities(models.Model):
     def __str__(self):
         return self.ammenityName
 
+
+class Join(models.Model):
+	'''
+	Model that keeps track of users and the neighbourhoods they're in
+	'''
+	user_id = models.ForeignKey(User)
+	hood_id = models.ForeignKey(Hood)
+
+	def __str__(self):
+		return self.user_id
