@@ -199,3 +199,11 @@ def join(request, hoodId):
         return redirect('displayhood')
 
 
+def exitHood(request, hoodId):
+	'''
+	View function to delete a user from a neighbourhood instance in the join table
+	'''
+	if Join.objects.filter(user_id=request.user).exists():
+		Join.objects.get(user_id=request.user).delete()
+
+		return redirect('homepage')
