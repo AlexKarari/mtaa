@@ -113,11 +113,11 @@ def new_post(request):
 def profile(request, profile_id):
     current_user = request.user
     profiles = Profile.objects.filter(user__id__iexact=profile_id)
-    profile = Profile.objects.get(user__id__iexact=profile_id)
+    # profile = Profile.objects.get(user__id__iexact=profile_id)
     all_profile = Profile.objects.all()
     content = {
         "profiles": profiles,
-        "profile": profile,
+        # "profile": profile,
         "user": current_user,
         "profile_id": profile_id,
         "all_profile": all_profile
