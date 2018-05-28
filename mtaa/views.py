@@ -18,12 +18,18 @@ from django.contrib import messages
 
 @login_required(login_url='/accounts/login/')
 def index(request):
+    '''
+    View function that displays the homepage and all its contents
+    '''
     post = Post.objects.all()
     return render(request, 'all/index.html', {"post": post})
 
 
 @login_required(login_url='/accounts/login/')
 def search_results(request):
+    '''
+    View function that enables a user search for any listed business
+    '''
 
     if 'business' in request.GET and request.GET["business"]:
         search_term = request.GET.get("business")
@@ -38,6 +44,9 @@ def search_results(request):
 
 
 def signup(request):
+    '''
+    View function that ensures a user is first authenticated before using/accesing the application.
+    '''
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -60,8 +69,12 @@ def signup(request):
 
 
 def account_activation_sent(request):
+    '''
+    View function that sends out an activation email to a user
+    '''
     return render(request, 'registration/account_activation_sent.html')
 
+#View funtion that activates their account once they signup to use the application
 @login_required(login_url='/accounts/login/')
 def activate(request, uidb64, token):
     try:
@@ -80,7 +93,7 @@ def activate(request, uidb64, token):
     else:
         return render(request, 'registration/account_activation_invalid.html')
 
-
+#View function that allows a user post up a notice for all to see
 @login_required(login_url='/accounts/login/')
 def new_post(request):
     current_user = request.user
@@ -95,7 +108,7 @@ def new_post(request):
         form = NewPostForm()
     return render(request, 'all/post.html', {"form": form})
     
-
+#View function that displays one profile. That includes their image and basic information
 @login_required(login_url='/accounts/login/')
 def profile(request, profile_id):
     current_user = request.user
@@ -111,7 +124,7 @@ def profile(request, profile_id):
     }
     return render(request, "all/profile.html", content)
 
-
+#View function that allows a user to edit his/her profile
 @login_required(login_url='/accounts/login/')
 def edit(request):
     profile = request.user.profile
@@ -127,7 +140,7 @@ def edit(request):
         form = EditProfile()
     return render(request, 'all/editprofile.html', {"form": form})
 
-
+# View function that enables one create a business
 @login_required(login_url='/accounts/login/')
 def business(request):
     current_user = request.user
@@ -142,6 +155,7 @@ def business(request):
         form = NewBusinessForm()
     return render(request, 'all/business.html', {"form": form})
 
+# View function that enables a user create a social place for the the occupants of a community
 @login_required(login_url='/accounts/login/')
 def social_ammenities(request):
     current_user = request.user
@@ -156,7 +170,7 @@ def social_ammenities(request):
         form = NewSocialForm()
     return render(request, 'all/social_ammenities.html', {"form": form})
 
-
+# View function that enables a user create a neighbourhood if it does not exist
 @login_required(login_url='/accounts/login/')
 def neighbourhood(request):
     current_user = request.user
@@ -171,13 +185,13 @@ def neighbourhood(request):
         form = NewHoodForm()
     return render(request, 'all/hood.html', {"form": form})
 
-
+# View function that displays all listed businesses
 @login_required(login_url='/accounts/login/')
 def bizdisplay(request):
     biz = Business.objects.all()
     return render(request, 'all/bizdisplay.html', {"biz": biz})
 
-
+# View function that displays all listed neighbourhoods
 @login_required(login_url='/accounts/login/')
 def mtaadisplay(request):
     hoods = Hood.objects.all()
