@@ -10,8 +10,9 @@ from .tokens import account_activation_token
 from django.utils.encoding import force_text
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 
@@ -148,7 +149,7 @@ def social_ammenities(request):
         form = NewSocialForm(request.POST)
         if form.is_valid():
             social = form.save(commit=False)
-            social.user = current_user
+            social.user = current_userhood
             social.save()
             return redirect('homepage')
     else:
@@ -184,15 +185,17 @@ def mtaadisplay(request):
 
 
 def join(request, hoodId):
-	'''
-	This view function will enable new users join a given neighbourhood 
-	'''
-	neighbourhood = Hood.objects.get(pk=hoodId)
-	if Join.objects.filter(user_id=request.user).exists():
+    '''
+    This view function will enable new users join a given neighbourhood 
+    '''
+    neighbourhood = Hood.objects.get(pk=hoodId)
+    if Join.objects.filter(user_id=request.user).exists():
+        messages.success(request, 'Welcome. You are now a member of this Neighbourhood')
+        Join.objects.filter(user_id=request.user).update(hood_id=neighbourhood)
+        return redirect('displayhood')
+    else:
+        messages.success(request, 'Welcome. You are now a member of this Neighbourhood')
+        Join(user_id=request.user, hood_id=neighbourhood).save()
+        return redirect('displayhood')
 
-		Join.objects.filter(user_id=request.user).update(hood_id=neighbourhood)
-	else:
 
-		Join(user_id=request.user, hood_id=neighbourhood).save()
-
-	return redirect('displayhood', hoodId)

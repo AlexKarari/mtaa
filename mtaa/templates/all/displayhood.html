@@ -16,8 +16,10 @@
                 Last number of registered occupants as per the census is: {{displayhood.occupantsCount}}
             </div>
             <div class="panel-body">
-                Join Neighbourhood
-                <i class="fas fa-sign-in-alt"></i>
+                Join this Neighbourhood
+                <a href="{% url 'joinHood' displayhood.id %}">
+                    <i class="fas fa-sign-in-alt"></i>
+                </a>
             </div>
             <div class="panel-footer">
                 Neighbourhood created by: {{displayhood.admin}}
