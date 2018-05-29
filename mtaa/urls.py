@@ -21,9 +21,8 @@ urlpatterns = [
     url(r'^business/$', views.bizdisplay, name='bizdisplay'),
     url(r'^neighbourhood_display/$', views.mtaadisplay, name='displayhood'),
     url(r'^join/(\d+)', views.join, name='joinHood'),
-    url(r'^exitHood/(\d+)',views.exitHood,name = 'exitHood'),
+    url(r'^exitHood/(\d+)', views.exitHood, name='exitHood'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
-

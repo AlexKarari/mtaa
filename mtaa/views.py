@@ -16,7 +16,8 @@ from django.contrib import messages
 
 # Create your views here.
 
-@login_required(login_url='/accounts/login/')
+
+@login_required(login_url='accounts/login/')
 def index(request):
     '''
     View function that displays the homepage and all its contents including social ammenitits and hoods notices
@@ -76,6 +77,8 @@ def account_activation_sent(request):
     return render(request, 'registration/account_activation_sent.html')
 
 #View funtion that activates their account once they signup to use the application
+
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -89,11 +92,13 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         return redirect('edit')
-        
+
     else:
         return render(request, 'registration/account_activation_invalid.html')
 
 #View function that allows a user post up a notice for all to see
+
+
 @login_required(login_url='/accounts/login/')
 def new_post(request):
     current_user = request.user
@@ -107,17 +112,19 @@ def new_post(request):
     else:
         form = NewPostForm()
     return render(request, 'all/post.html', {"form": form})
-    
+
 #View function that displays one profile. That includes their image and basic information
+
+
 @login_required(login_url='/accounts/login/')
 def profile(request, profile_id):
     current_user = request.user
     profiles = Profile.objects.filter(user__id__iexact=profile_id)
-    # profile = Profile.objects.get(user__id__iexact=profile_id)
+    profile = Profile.objects.get(user=profile_id)
     all_profile = Profile.objects.all()
     content = {
         "profiles": profiles,
-        # "profile": profile,
+        "profile": profile,
         "user": current_user,
         "profile_id": profile_id,
         "all_profile": all_profile
@@ -125,6 +132,8 @@ def profile(request, profile_id):
     return render(request, "all/profile.html", content)
 
 #View function that allows a user to edit his/her profile
+
+
 @login_required(login_url='/accounts/login/')
 def edit(request):
     profile = request.user.profile
@@ -135,12 +144,14 @@ def edit(request):
             profile = form.save(commit=False)
             profile.user = request.user
             profile.save()
-            return redirect('profile', current_user.username)
+            return redirect('profile', current_user.id)
     else:
         form = EditProfile()
     return render(request, 'all/editprofile.html', {"form": form})
 
 # View function that enables one create a business
+
+
 @login_required(login_url='/accounts/login/')
 def business(request):
     current_user = request.user
@@ -156,6 +167,8 @@ def business(request):
     return render(request, 'all/business.html', {"form": form})
 
 # View function that enables a user create a social place for the the occupants of a community
+
+
 @login_required(login_url='/accounts/login/')
 def social_ammenities(request):
     current_user = request.user
@@ -163,7 +176,7 @@ def social_ammenities(request):
         form = NewSocialForm(request.POST)
         if form.is_valid():
             social = form.save(commit=False)
-            social.user = current_userhood
+            social.user = current_user
             social.save()
             return redirect('homepage')
     else:
@@ -171,6 +184,8 @@ def social_ammenities(request):
     return render(request, 'all/social_ammenities.html', {"form": form})
 
 # View function that enables a user create a neighbourhood if it does not exist
+
+
 @login_required(login_url='/accounts/login/')
 def neighbourhood(request):
     current_user = request.user
@@ -186,12 +201,16 @@ def neighbourhood(request):
     return render(request, 'all/hood.html', {"form": form})
 
 # View function that displays all listed businesses
+
+
 @login_required(login_url='/accounts/login/')
 def bizdisplay(request):
     biz = Business.objects.all()
     return render(request, 'all/bizdisplay.html', {"biz": biz})
 
 # View function that displays all listed neighbourhoods
+
+
 @login_required(login_url='/accounts/login/')
 def mtaadisplay(request):
     hoods = Hood.objects.all()
@@ -204,11 +223,13 @@ def join(request, hoodId):
     '''
     neighbourhood = Hood.objects.get(pk=hoodId)
     if Join.objects.filter(user_id=request.user).exists():
-        messages.success(request, 'Welcome. You are now a member of this Neighbourhood')
+        messages.success(
+            request, 'Welcome. You are now a member of this Neighbourhood')
         Join.objects.filter(user_id=request.user).update(hood_id=neighbourhood)
         return redirect('displayhood')
     else:
-        messages.success(request, 'Welcome. You are now a member of this Neighbourhood')
+        messages.success(
+            request, 'Welcome. You are now a member of this Neighbourhood')
         Join(user_id=request.user, hood_id=neighbourhood).save()
         return redirect('displayhood')
 
