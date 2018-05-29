@@ -17,7 +17,7 @@ from django.contrib import messages
 # Create your views here.
 
 
-@login_required(login_url='accounts/login/')
+@login_required(login_url='/accounts/login/')
 def index(request):
     '''
     View function that displays the homepage and all its contents including social ammenitits and hoods notices
