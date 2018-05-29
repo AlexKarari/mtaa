@@ -45,7 +45,7 @@ To run local server run ``python manage.py runserver``
 * New user can view all posts for any given neighbourhood instead of their own. This to be worked on later and corrected.
 
 ## Link
-
+https://hoodmaneno.herokuapp.com/accounts/login/?next=/
 
 ## License
 
